@@ -23,9 +23,9 @@ namespace OIDC_DOT_NET_INTEGRATION_PRODUCTION.Controllers
         public static readonly string token_request_uri = "https://epramaan.meripehchaan.gov.in/openid/jwt/processJwtTokenRequest.do";
         public static readonly string push_back_uri = "https://epramaan.meripehchaan.gov.in/rest/epramaan/enrol/response";
 
-        public static readonly string client_id = "100001231";
-        public static readonly string salt = "100001";
-        public static readonly string aeskey = "cb3a59f6-0617-4898-b859-8bb02fee91b3";
+        public static readonly string client_id = "*****1231";
+        public static readonly string salt = "1****1";
+        public static readonly string aeskey = "****-****-****-****";
         public static readonly string redirect_uri = "http://localhost:44355/Epramaan/ProcessAuthCodeAndGetToken";
         public static readonly string Certificate = "D:/Integration/aspDotNet/OidcDotNetProduction/OidcDotNetProduction/epramaanprod2016.cer";
 
@@ -72,7 +72,7 @@ namespace OIDC_DOT_NET_INTEGRATION_PRODUCTION.Controllers
         }
 
         [HttpPost]
-        public ActionResult OneTimePushBack(string username, string password, string epramaanId, string salt) 
+        public ActionResult OneTimePushBack(string username, string password, string epramaanId, string salt)
         {
             string transactionId = epramaanId;
             DateTimeOffset currentTime = DateTimeOffset.Now;
@@ -81,7 +81,8 @@ namespace OIDC_DOT_NET_INTEGRATION_PRODUCTION.Controllers
             string serviceUserId = username;
             Boolean verified = true;
 
-            if (!(username== "cdac" && password == "cdac")) {
+            if (!(username == "cdac" && password == "cdac"))
+            {
                 verified = false;
                 serviceUserId = "";
             }
@@ -96,7 +97,7 @@ namespace OIDC_DOT_NET_INTEGRATION_PRODUCTION.Controllers
             };
 
             // Serialize the dictionary to JSON
-            string plainTextEnrolSPServiceResponse = JsonConvert.SerializeObject(pushBackObj)+salt;
+            string plainTextEnrolSPServiceResponse = JsonConvert.SerializeObject(pushBackObj) + salt;
             string encryptedEnrolSPServiceResponse = Encrypt(plainTextEnrolSPServiceResponse, aeskey);
 
             var jsonVariables = new Dictionary<string, object>
